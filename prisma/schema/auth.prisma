@@ -1,0 +1,12 @@
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  expiresAt DateTime
+
+  user User @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
